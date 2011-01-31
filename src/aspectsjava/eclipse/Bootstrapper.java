@@ -1,24 +1,20 @@
 package aspectsjava.eclipse;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URL;
-import java.util.List;
 
-import jnome.core.language.Java;
 import jnome.output.JavaCodeWriter;
+import aspectsjava.build.AspectsBuilder;
 import aspectsjava.input.AspectsJavaModelFactory;
 import aspectsjava.model.language.AspectsJava;
 import chameleon.core.language.Language;
-import chameleon.editor.LanguageMgt;
-import chameleon.editor.connector.Builder;
 import chameleon.editor.connector.EclipseBootstrapper;
 import chameleon.editor.connector.EclipseEditorExtension;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
-import chameleon.output.Syntax;
+import chameleon.plugin.build.Builder;
+import chameleon.plugin.output.Syntax;
 
 
 public class Bootstrapper extends EclipseBootstrapper {
@@ -60,24 +56,28 @@ public class Bootstrapper extends EclipseBootstrapper {
 		ModelFactory factory = new AspectsJavaModelFactory(result);
 		factory.setLanguage(result, ModelFactory.class);
 		try {
-			loadAPIFiles(".jlow", PLUGIN_ID, factory);
+			loadAPIFiles(".aspect", PLUGIN_ID, factory);
 		} catch(ChameleonProgrammerException exc) {
 			// Object and String may not be present yet.
 		}
-		result.setConnector(EclipseEditorExtension.class, new AspectsJavaEditorExtension());
-		result.setConnector(Syntax.class, new JavaCodeWriter());
+		result.setPlugin(EclipseEditorExtension.class, new AspectsJavaEditorExtension());
+		result.setPlugin(Syntax.class, new JavaCodeWriter());
 		return result;
 	}
 	
 	public Builder createBuilder(Language source, File projectDirectory) {
 //		RootNamespace clone = source.defaultNamespace().clone();
-		Java result = new Java();
+//		Java result = new Java();
 //		result.cloneConnectorsFrom(source);
 //		result.cloneProcessorsFrom(source);
 //		result.setDefaultNamespace(clone);
-		result.setConnector(Syntax.class, new JavaCodeWriter());
+//		result.setPlugin(Syntax.class, new JavaCodeWriter());
+//		File outputDirectory = new File(projectDirectory.getAbsolutePath()+File.separator+"java");
+//		return new AspectsBuilder((AspectsJava) source, result, outputDirectory);
+		
 		File outputDirectory = new File(projectDirectory.getAbsolutePath()+File.separator+"java");
-		return new AspectsBuilder((AspectsJava) source, result, outputDirectory);
+		return new AspectsBuilder((AspectsJava) source, outputDirectory);
+
 	}
 
 }
