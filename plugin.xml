@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="Aspects.eclipse"
+         name="Aspects Eclipse"
+         point="chameleon.eclipse.language">
+         <bootstrapper
+          class="aspectsjava.eclipse.Bootstrapper">
+         </bootstrapper>
+   </extension>
+   <extension point="org.eclipse.core.contenttype.contentTypes"> 
+      <file-association
+       content-type="be.chameleon.eclipse.chameleonsource"
+       file-extensions="aspect"/>
+   </extension>
+   
+</plugin>

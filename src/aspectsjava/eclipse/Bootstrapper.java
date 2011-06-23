@@ -22,8 +22,6 @@ public class Bootstrapper extends EclipseBootstrapper {
 	public final static String PLUGIN_ID="be.chameleon.eclipse.aspects";
 	
 	public void registerFileExtensions() {
-//		addExtension("java"); This causes problems with the generated files after a refresh. Until
-//		                      we have a source path, I will simply rename the API files to .jlow
 		addExtension("aspect");
 	}
 	
